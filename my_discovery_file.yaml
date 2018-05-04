@@ -92,18 +92,10 @@ launch_data:
   # distributed graph. 'eos-bios' will be able to traverse this graph
   # and create a full portrait of the community, with all information
   # necessary to automate the steps of network boot.
-  peers: []
-  # peers:
-  # - discovery_link: /ipns/Qm...
-  #   comment: "EOS Antarctica's Igloo testnet"
-  #   weight: 1.0  # from 0.0 to 1.0, floating point number
-  # - discovery_link: /ipns/QmEOSLAUTRE..........................
-  #   weight: 0.8
-  # - discovery_link: /ipns/Qm................................
-  #   weight: 0.2
-  # - discovery_link: /ipns/Qm................................
-  #   comment: "He just learned what 'ls' was.. but he'll ramp up fast, I'm sure"
-  #   weight: 0.0  # Link him on the network, but not vouching for them.
+  peers:
+  - discovery_link: /ipns/QmNcG3HzDRys2gzZetD8mi4Ztix1zacCCvS98qrBrJDXAh
+    comment: "EOS Nation - Block Deux"
+    weight: 1.0  # from 0.0 to 1.0, floating point number
 
   # --- WHAT ---
 
