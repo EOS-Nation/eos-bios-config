@@ -5,4 +5,4 @@
 
 echo "Starting $1 operation"
 
-docker kill nodeos-bios || true
+systemctl stop nodeos.service || true
