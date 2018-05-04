@@ -14,8 +14,8 @@ PRIVKEY=`cat privkey-GDW5CV.key`
 echo "Killing running nodes"
 systemctl stop nodeos.service
 
-echo "Removing old nodeos data (you might be asked for your sudo password)..."
-sudo rm -rf /tmp/nodeos-data
+echo "Removing old nodeos data..."
+rm -rf ../data
 
 echo "Writing genesis.json"
 echo $1 > genesis.json
