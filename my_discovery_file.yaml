@@ -94,9 +94,12 @@ launch_data:
   # necessary to automate the steps of network boot.
   peers:
   - discovery_link: /ipfs/QmNcG3HzDRys2gzZetD8mi4Ztix1zacCCvS98qrBrJDXAh
-    comment: "EOS Nation - Block Deux"
-    weight: 1.0  # from 0.0 to 1.0, floating point number
-
+    comment: "EOS Nation - Block.Deux"
+    weight: 1.0
+  - discovery_link: /ipns/Qmd8Pyv42KVekSntUmEABy73JfTVwNKnefrG6AfcQiJX2m
+    comment: "EOS Cafe - Block.Deux"
+    weight: 1.0
+ 
   # --- WHAT ---
 
   # Takes into consideration the snapshot, msig, token, system and bios contracts.
