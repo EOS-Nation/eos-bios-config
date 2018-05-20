@@ -1,0 +1,13 @@
+version: "3"
+
+services:
+  nodeos:
+    container_name: nodeos
+    image: eosio/eos
+    command: nodeos
+    hostname: nodeos
+    ports:
+      - 8888:8888
+      - 9876:9876
+    volumes:
+      - /root:/root

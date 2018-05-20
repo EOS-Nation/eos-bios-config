@@ -1,134 +1,94 @@
-# EOS Scholar - Block Producer
-# https://github.com/ScholarTestnet
+#
+# Discovery happens on a SEED network running EOS.IO software.
+# We boot a new network from a previous network, until we reach the mainnet.
+# We call each network a stage. Ex: stage0, stage1, stage2, stage3, until "mainnet".
+#
+seed_network_chain_id: "0000000000000000000000000000000000000000000000000000000000000001"
+seed_network_account_name:
 
-testnet: true  # REQUIRED, one or the other, not both.
-# mainnet: true
-# Marking mainnet=true means we automatically disabling all the TESTNET features in the boot_sequence
+seed_network_http_address: http://stage5.testnets.eoscanada.com
+# These are your peers on the SEED network.  They must have published
+# their discovery in the seed network `eosio.disco` contract (with
+# `eos-bios publish`). Otherwise, your peer link here will be ignored.
+seed_network_peers:
+- account: eoscanadacom
+  comment: "EOS Canada"
+  weight: 100
+- account: eosiosg
+  comment: "EOSIO.SG"
+  weight: 100
 
-# Block Producer Account (Required)
-# The account you go by on the network
-eosio_account_name: eos.nation
+seed_network_launch_block: 551  # Block on the SEED EOS network before we orchestrate the TARGET network launch.  Putting a past block will start orchestration right away.
 
-# Authority (Required)
-eosio_initial_authority:
+urls:
+- https://eosnation.io
+
+# To help organize schedules for rehearsals.
+gmt_offset: -300  # in HourMinutes format
+
+target_network_is_test: 1  # 0 = mainnet, anything else is a testnet
+# You can only link with peers that target the same chain_id
+target_chain_id: "0000000000000000000000000000000000000000000000000000000000000002"
+target_p2p_address: stage7.testnets.eosnation.io:9876
+target_http_address: https://stage7.testnets.eosnation.io
+target_account_name: eosnation111
+target_appointed_block_producer_signing_key: EOS6MRyAjQq8ud7hVNYcfnVPJqcVpscN5So8BhtHuGYqET5GDW5CV
+target_initial_authority:
   owner:
     threshold: 1
     keys:
-    - public_key: EOS6MRyAjQq8ud7hVNYcfnVPJqcVpscN5So8BhtHuGYqET5GDW5CV
+    - key: EOS6MRyAjQq8ud7hVNYcfnVPJqcVpscN5So8BhtHuGYqET5GDW5CV
       weight: 1
   active:
     threshold: 1
     keys:
-    - public_key: EOS6MRyAjQq8ud7hVNYcfnVPJqcVpscN5So8BhtHuGYqET5GDW5CV
-      weight: 1
-  recovery:
-    threshold: 1
-    accounts:
-    - permission:
-        actor: eosio
-        permission: active
+    - key: EOS6MRyAjQq8ud7hVNYcfnVPJqcVpscN5So8BhtHuGYqET5GDW5CV
       weight: 1
 
-# Server Config (Optional)
-eosio_http:
-eosio_https: https://blockdeux.eosnation.io
-eosio_p2p: blockdeux.eosnation.io:9876
+target_contents:
+  - name: boot_sequence.yaml
+    ref: /ipfs/QmYvDaKwNTTRXUNUqUPmmTXUuanfQ7GqA6Ps45e96Hw96p
+    comment: "Includes eosio.disco. Does kill accounts at the end. Sets RAM. Refers to github.com/eoscanada/eos-bios/files/boot_sequence.yaml"
+  - name: snapshot.csv
+    ref: /ipfs/QmY4iHQYoqUZ6e1iqFGqYYLzYWiYjy3zFLoMhG9PvSsrSD
+    comment: "Snapshot at period 290."
+  - name: snapshot_unregistered.csv
+    ref: /ipfs/QmSxed6nhtDQ5EZqGXYuzTUyW4rLPcaffrYZPkPQbZMW58
+    comment: "Published by EOS Canada. Period 320."
+  - name: eosio.bios.abi
+    ref: /ipfs/QmW9qDWMy3fHKD4Y6GGgkErwm6jYWBUMNV9Bav5T1jRVB4
+    comment: "Published by EOS Canada. Tag dawn-v4.0.0"
+  - name: eosio.bios.wasm
+    ref: /ipfs/QmW7rfu2kYk5NruE29mm3nCXaVDdh9ux5SzSwRMSFQkHMC
+    comment: "Published by EOS Canada. Tag dawn-v4.0.0"
+  - name: eosio.system.abi
+    ref: /ipfs/QmRHMynNSDwKAuCyHXk9Eb1MsFMMWJvFauFfNmU5zmiDaA
+    comment: "Published by EOS Canada. Tag dawn-v4.0.0. Patched with fixes in b2c417bfe9ca and 27cf18be5a19e."
+  - name: eosio.system.wasm
+    ref: /ipfs/QmY17qqyjamvAwjoX1J9SgXThk5AUJBwhyPfnaNeHKpZjv
+    comment: "Published by EOS Canada. Tag dawn-v4.0.0"
+  - name: eosio.msig.abi
+    ref: /ipfs/QmQUAuex2LQ6tanLDXhgL3kSAsUU9uVLjYBkZfD8NgA6vV
+    comment: "Published by EOS Canada. Tag dawn-v4.0.0"
+  - name: eosio.msig.wasm
+    ref: /ipfs/QmXDoVaiH9QZkMriNgsp6urFUy2PT4x782wvryBhQbpaJY
+    comment: "Published by EOS Canada. Tag dawn-v4.0.0"
+  - name: eosio.token.abi
+    ref: /ipfs/QmWV3ZRVpxhACDFbgupMnEtm5gvMErfX2FGXXTg2YEh86N
+    comment: "Published by EOS Canada. Tag dawn-v4.0.0"
+  - name: eosio.token.wasm
+    ref: /ipfs/QmYz7ZaMYkKfo3RhDofmxKVguNiPHQHo3AWbK7obgkGSxm
+    comment: "Published by EOS Canada. Tag dawn-v4.0.0"
+  - name: eosio.disco.abi
+    ref: /ipfs/QmdtgEzi9qbiMLBv8cm5CeMFWUPDWuJFpgfnCMjqsdKHwz
+    comment: "Published by EOS Canada. eos-bios revision a03aad3c18f07d277e44de5443850f951df551be"
+  - name: eosio.disco.wasm
+    ref: /ipfs/QmUNo5jMFn1BqT8msuw7ZtW37d1FP2PJSeWu7fDQ7H4Syn
+    comment: "Published by EOS Canada. eos-bios revision a03aad3c18f07d277e44de5443850f951df551be"
 
-# Encryption (Optional)
-pgp_public_key:
-
-# Social (Optional)
-social_twitter: https://twitter.com/EOS_Nation
-social_telegram: https://t.me/EOSNation
-social_facebook: https://www.facebook.com/groups/EOSNation/
-social_github: https://github.com/EOS-Nation
-social_youtube: https://www.youtube.com/channel/UCXgAY9DyooykrubRXw3xK1g?view_as=subscriber
-social_slack:
-social_wechat:
-social_steem: https://steemit.com/@eosnation
-
-# Potentially used for cryptographic operations. Please provide this one if using eos-bios
-social_keybase: https://keybase.io/deniscarriere
-
-# Geographic Location (Optional)
-latitude: 45.5
-longitude: -73.5833
-
-# Organization (Optional)
-organization_name: EOS Nation
-logo_url: https://user-images.githubusercontent.com/550895/37734119-9f6ead4e-2d20-11e8-8d37-35e60ffb9c22.png
-timezone: America/Toronto
-website: https://eosnation.io
-introduction_post_url: https://steemit.com/eos/@daverex/eos-nation-founding-eos-block-producer-candidate
-organization_tagline: Building our Future One Block at a Time
-
-# Email (Optional)
-email_support: info@eosnation.io
-email_abuse: info@eosnation.io
-email_tech: info@eosnation.io
-
-# The following one is used by the BIOS Boot node to hook up initial
-# Appointed Block Producers keys (and potentially other participants in the launch)
-eosio_appointed_block_producer_signing_key: EOS6MRyAjQq8ud7hVNYcfnVPJqcVpscN5So8BhtHuGYqET5GDW5CV
-
-# This section is required for an 'eos-bios' launch.
-launch_data:
-  # --- WHEN ---
-  # The Ethereum block is the seed data we're waiting to launch the
-  # 'orchestrate' step.  When you start 'eos-bios orchestrate', it
-  # first fetches the Ethereum block's hash, and uses it for
-  # randomly selected the BIOS Boot node.
-  launch_ethereum_block: 5544732  # Past block, for testing
-  #launch_ethereum_block: 5716358  # Approx June 2st 2018, 0100 UTC, 2 hours after snapshot freeze
-
-  # --- WITH WHO ---
-  #
-  # Other BPs' discovery_link, with whom you're comfortable launching
-  # the network with, you've discussed and think they are competent to
-  # 1) not screw up a launch and, 2) run the network and take good
-  # decisions.
-  #
-  # By tagging along peers, we are effectively creating a
-  # distributed graph. 'eos-bios' will be able to traverse this graph
-  # and create a full portrait of the community, with all information
-  # necessary to automate the steps of network boot.
-  peers:
-  - discovery_link: /ipfs/QmNcG3HzDRys2gzZetD8mi4Ztix1zacCCvS98qrBrJDXAh
-    comment: "EOS Nation - Block.Deux"
-    weight: 1.0
-  - discovery_link: /ipns/Qmd8Pyv42KVekSntUmEABy73JfTVwNKnefrG6AfcQiJX2m
-    comment: "EOS Cafe - Block.Deux"
-    weight: 1.0
- 
-  # --- WHAT ---
-
-  # Takes into consideration the snapshot, msig, token, system and bios contracts.
-  boot_sequence: /ipfs/QmYRsQNxAZFvx8djAxKsgurJT1RF47MhAEQ2sLz1MunnXH
-
-  # This one skips the step to set the appointd block producers,
-  #leaving 'eosio' to produce all the time.  This is great for local
-  #development.
-  #boot_sequence: /ipfs/QmVoz3u3N6hYTktit2npTMdXkzWey5gknY9MWoeNB8tSrj
-
-  # Built by Robert on that infrastructure, in this context, etc...
-  snapshot: /ipfs/QmY4iHQYoqUZ6e1iqFGqYYLzYWiYjy3zFLoMhG9PvSsrSD
-
-  # snapshot_unregistered:
-
-  contracts:
-    eosio.bios:
-      # From github.com/eosio/eos, built from git commit abcdef1234 on Jan 21st 2020, by EOS Antarctica
-      abi: /ipfs/QmbZATGSuN1rwfX4WMHaVHCroZgKwHZjvvEQg93HtcpSk4
-      code: /ipfs/QmVNzTLXSegBdpDxUMrKMVpFBbwnpu2j45iRrFkBtxuQby
-
-    eosio.system:
-      abi: /ipfs/QmPxEwukXL4tsMiqKtGozLUDzrc6ckwcVjgf68YQyGD5Fu
-      code: /ipfs/QmQaMSL54PDxQZZFmXK2TXcV7oHCBocCZ6i4D98CNDSBd8
-
-    eosio.msig:
-      abi: /ipfs/Qmdbo2jFGLH1mBGYTiktpEmizwK4ZVSxjtfh9o38AAQquw
-      code: /ipfs/QmbXo3nTe3obzQdKYqj9pe5Abf1Er5pqtFL2DsVSQKyF4p
-
-    eosio.token:
-      abi: /ipfs/QmZpmcrfWAEUU4KG6hRPrBRTJ2X63sTrQsBRogiKZA7aP6
-      code: /ipfs/QmTe5K1eR8Vbmz4mxEJSGyus9PrHymjL9hX31x1B5pchJT
+  # - name: eosio.unregd.abi
+  #   ref: /ipfs/Qm...
+  #   comment: ""
+  # - name: eosio.unregd.wasm
+  #   ref: /ipfs/Qm...
+  #   comment: ""
