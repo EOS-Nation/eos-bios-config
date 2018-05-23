@@ -4,18 +4,14 @@
 # We call each network a stage. Ex: stage0, stage1, stage2, stage3, until "mainnet".
 #
 seed_network_chain_id: "0000000000000000000000000000000000000000000000000000000000000001"
-seed_network_account_name:
-
-seed_network_http_address: http://stage5.testnets.eoscanada.com
+seed_network_account_name: eosnationcom
+seed_network_http_address: http://stage7.testnets.eoscanada.com
 # These are your peers on the SEED network.  They must have published
 # their discovery in the seed network `eosio.disco` contract (with
 # `eos-bios publish`). Otherwise, your peer link here will be ignored.
 seed_network_peers:
 - account: eoscanadacom
   comment: "EOS Canada"
-  weight: 100
-- account: eosiosg
-  comment: "EOSIO.SG"
   weight: 100
 
 seed_network_launch_block: 551  # Block on the SEED EOS network before we orchestrate the TARGET network launch.  Putting a past block will start orchestration right away.
@@ -29,62 +25,76 @@ gmt_offset: -300  # in HourMinutes format
 target_network_is_test: 1  # 0 = mainnet, anything else is a testnet
 # You can only link with peers that target the same chain_id
 target_chain_id: "0000000000000000000000000000000000000000000000000000000000000002"
-target_p2p_address: stage7.testnets.eosnation.io:9876
-target_http_address: https://stage7.testnets.eosnation.io
-target_account_name: eosnation111
-target_appointed_block_producer_signing_key: EOS6MRyAjQq8ud7hVNYcfnVPJqcVpscN5So8BhtHuGYqET5GDW5CV
+target_p2p_address: stage8.eosn.io:9876
+target_http_address: http://stage8.eosn.io
+target_account_name: eosnationcom
+target_appointed_block_producer_signing_key: EOS8PkNNBYU1xnbcjBUNm1mT6N68QiGvCDgPT97rqurLBEjDanSXK
 target_initial_authority:
   owner:
     threshold: 1
     keys:
-    - key: EOS6MRyAjQq8ud7hVNYcfnVPJqcVpscN5So8BhtHuGYqET5GDW5CV
+    - key: EOS8PkNNBYU1xnbcjBUNm1mT6N68QiGvCDgPT97rqurLBEjDanSXK
       weight: 1
   active:
     threshold: 1
     keys:
-    - key: EOS6MRyAjQq8ud7hVNYcfnVPJqcVpscN5So8BhtHuGYqET5GDW5CV
+    - key: EOS8PkNNBYU1xnbcjBUNm1mT6N68QiGvCDgPT97rqurLBEjDanSXK
       weight: 1
 
 target_contents:
   - name: boot_sequence.yaml
-    ref: /ipfs/QmYvDaKwNTTRXUNUqUPmmTXUuanfQ7GqA6Ps45e96Hw96p
-    comment: "Includes eosio.disco. Does kill accounts at the end. Sets RAM. Refers to github.com/eoscanada/eos-bios/files/boot_sequence.yaml"
+    ref: /ipfs/QmUMjQV89r7ZacA5ZPpyFxwhr7tRBAviaio9doHmTPzuSj
+    comment: "Refers to github.com/eoscanada/eos-bios/files/boot_sequence.yaml"
+
   - name: snapshot.csv
-    ref: /ipfs/QmY4iHQYoqUZ6e1iqFGqYYLzYWiYjy3zFLoMhG9PvSsrSD
-    comment: "Snapshot at period 290."
+    ref: /ipfs/QmSRbJeZaWQXXJfK34z6hah7RN8DYr45BGqwNE7YNeFH6s
+    comment: "Gathered by someone. Published by EOS Canada. Period 332, with account names"
+
   - name: snapshot_unregistered.csv
-    ref: /ipfs/QmSxed6nhtDQ5EZqGXYuzTUyW4rLPcaffrYZPkPQbZMW58
-    comment: "Published by EOS Canada. Period 320."
+    ref: /ipfs/QmYX7f4cL25dYyTBMmVKq8UrunCM46apw56Zi5SmYw1qgh
+    comment: "Gathered by someone. Published by EOS Canada. Period 332"
+
   - name: eosio.bios.abi
-    ref: /ipfs/QmW9qDWMy3fHKD4Y6GGgkErwm6jYWBUMNV9Bav5T1jRVB4
-    comment: "Published by EOS Canada. Tag dawn-v4.0.0"
+    ref: /ipfs/QmUeci9zVkhzctMktea8UNa5fZCizteXieT8Z21M8GpZoU
+    comment: "Published by EOS Canada. Tag dawn-v4.1.0, unchanged in 05-22"
   - name: eosio.bios.wasm
     ref: /ipfs/QmW7rfu2kYk5NruE29mm3nCXaVDdh9ux5SzSwRMSFQkHMC
-    comment: "Published by EOS Canada. Tag dawn-v4.0.0"
+    comment: "Published by EOS Canada. Tag dawn-v4.1.0, unchanged in 05-22"
+
   - name: eosio.system.abi
-    ref: /ipfs/QmRHMynNSDwKAuCyHXk9Eb1MsFMMWJvFauFfNmU5zmiDaA
-    comment: "Published by EOS Canada. Tag dawn-v4.0.0. Patched with fixes in b2c417bfe9ca and 27cf18be5a19e."
+    ref: /ipfs/QmShJs1u2TjU1CgEEsDYpEZy9WusuvmfwFhSedaR6cScGj
+    comment: "Published by EOS Canada. Tag DAWN-2018-05-22"
   - name: eosio.system.wasm
-    ref: /ipfs/QmY17qqyjamvAwjoX1J9SgXThk5AUJBwhyPfnaNeHKpZjv
-    comment: "Published by EOS Canada. Tag dawn-v4.0.0"
+    ref: /ipfs/QmNVuK2qhZePj7cLeRuyyTLY3LVZW6fhnQp7gpUHH4biSt
+    comment: "Published by EOS Canada. Tag DAWN-2018-05-22"
+
   - name: eosio.msig.abi
-    ref: /ipfs/QmQUAuex2LQ6tanLDXhgL3kSAsUU9uVLjYBkZfD8NgA6vV
-    comment: "Published by EOS Canada. Tag dawn-v4.0.0"
+    ref: /ipfs/QmRgNd9Jm6UX8qseBvMhfh8Pu3kdyJDNE1StGQWoYdp7Wx
+    comment: "Published by EOS Canada. Tag dawn-v4.1.0, unchanged in 05-22"
   - name: eosio.msig.wasm
-    ref: /ipfs/QmXDoVaiH9QZkMriNgsp6urFUy2PT4x782wvryBhQbpaJY
-    comment: "Published by EOS Canada. Tag dawn-v4.0.0"
+    ref: /ipfs/QmadUdTbjJWuqccmFZUfaNT7PTAvwVh6ffhnd8HfzMmuvL
+    comment: "Published by EOS Canada. Tag dawn-v4.1.0, unchanged in 05-22"
+
   - name: eosio.token.abi
-    ref: /ipfs/QmWV3ZRVpxhACDFbgupMnEtm5gvMErfX2FGXXTg2YEh86N
-    comment: "Published by EOS Canada. Tag dawn-v4.0.0"
+    ref: /ipfs/QmPqC7HAwCzKTsoskec7jTohyXZ2YFUQ9SHep6JpTFcXbY
+    comment: "Published by EOS Canada. Tag dawn-v4.1.0, unchanged in 05-22"
   - name: eosio.token.wasm
-    ref: /ipfs/QmYz7ZaMYkKfo3RhDofmxKVguNiPHQHo3AWbK7obgkGSxm
-    comment: "Published by EOS Canada. Tag dawn-v4.0.0"
+    ref: /ipfs/QmY7TW1Dv9ZCyRXx9P9rDv492rspGbqaKcQgXAvHYZ22wM
+    comment: "Published by EOS Canada. Tag DAWN-2018-05-22"
+
   - name: eosio.disco.abi
-    ref: /ipfs/QmdtgEzi9qbiMLBv8cm5CeMFWUPDWuJFpgfnCMjqsdKHwz
-    comment: "Published by EOS Canada. eos-bios revision a03aad3c18f07d277e44de5443850f951df551be"
+    ref: /ipfs/QmYzxhhE9f9aZTV7rqqYSNQy9pZVKk2pur9ccRZfY7yfs9
+    comment: "Published by EOS Canada. eos-bios revision 4c6fc8b7a4f26ef81978d796e2e953c96c83b941"
   - name: eosio.disco.wasm
     ref: /ipfs/QmUNo5jMFn1BqT8msuw7ZtW37d1FP2PJSeWu7fDQ7H4Syn
     comment: "Published by EOS Canada. eos-bios revision a03aad3c18f07d277e44de5443850f951df551be"
+
+  - name: eosio.unregd.abi
+    ref: /ipfs/QmaWWCwJVr3ZB7h83igMvPcqAMzV3gNeaVhdhUyHfbEYKg
+    comment: "Published by EOS Canada. eos-bios revision 4c6fc8b7a4f26ef81978d796e2e953c96c83b941"
+  - name: eosio.unregd.wasm
+    ref: /ipfs/QmfBsgyHFZc3dJ3H1qqEQZdZsSZTXL3EwbVqdRWua1XuLm
+    comment: "Published by EOS Canada. eos-bios revision 4c6fc8b7a4f26ef81978d796e2e953c96c83b941"
 
   # - name: eosio.unregd.abi
   #   ref: /ipfs/Qm...

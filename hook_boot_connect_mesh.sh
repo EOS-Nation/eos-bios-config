@@ -15,6 +15,6 @@ echo "$1" >> config.ini
 
 echo "Restarting boot node"
 
-docker-compose restart
+docker restart nodeos-bios
 
 sleep 2

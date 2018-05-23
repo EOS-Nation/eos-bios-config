@@ -19,11 +19,9 @@
 PUBKEY=EOS6MRyAjQq8ud7hVNYcfnVPJqcVpscN5So8BhtHuGYqET5GDW5CV
 PRIVKEY=5KQwrPbwdL6PhXujxW37FSSQZ1JiwsST4cqQzDeyXtP79zkvFD3
 
-echo "Killing running nodes"
-docker-compose kill
 
 echo "Removing old nodeos data (you might be asked for your sudo password)..."
-sudo rm -rf /root/.local/share/eosio/nodeos/data
+sudo rm -rf /tmp/nodeos-data
 
 echo "Writing genesis.json"
 echo $1 > genesis.json
@@ -37,10 +35,16 @@ echo "$4" >> config.ini
 echo "private-key = [\"$PUBKEY\",\"$PRIVKEY\"]" >> config.ini
 
 echo "Running 'nodeos' through Docker."
-docker-compose up -d
+docker run -ti --detach --name nodeos-bios \
+       -v `pwd`:/etc/nodeos -v /tmp/nodeos-data:/data \
+       -p 8888:8888 -p 9876:9876 \
+       eoscanada/eos:DAWN-2018-05-22 \
+       /opt/eosio/bin/nodeos --data-dir=/data \
+                             --genesis-json=/etc/nodeos/genesis.json \
+                             --config-dir=/etc/nodeos
 
 echo ""
-echo "   View logs with: docker-compose logs -f"
+echo "   View logs with: docker logs -f nodeos-bios"
 echo ""
 
 echo "Waiting 3 secs for nodeos to launch through Docker"
