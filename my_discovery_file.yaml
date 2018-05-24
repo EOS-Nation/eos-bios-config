@@ -5,7 +5,7 @@
 #
 seed_network_chain_id: "0000000000000000000000000000000000000000000000000000000000000001"
 seed_network_account_name: eosnationcom
-seed_network_http_address: http://stage7.testnets.eoscanada.com
+seed_network_http_address: http://stage9.testnets.eoscanada.com
 # These are your peers on the SEED network.  They must have published
 # their discovery in the seed network `eosio.disco` contract (with
 # `eos-bios publish`). Otherwise, your peer link here will be ignored.
@@ -25,8 +25,8 @@ gmt_offset: -300  # in HourMinutes format
 target_network_is_test: 1  # 0 = mainnet, anything else is a testnet
 # You can only link with peers that target the same chain_id
 target_chain_id: "0000000000000000000000000000000000000000000000000000000000000002"
-target_p2p_address: stage8.eosn.io:9876
-target_http_address: http://stage8.eosn.io
+target_p2p_address: 138.197.160.32:9876
+target_http_address: http://138.197.160.32:8888
 target_account_name: eosnationcom
 target_appointed_block_producer_signing_key: EOS8PkNNBYU1xnbcjBUNm1mT6N68QiGvCDgPT97rqurLBEjDanSXK
 target_initial_authority:

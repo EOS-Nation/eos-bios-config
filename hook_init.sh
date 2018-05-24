@@ -5,5 +5,5 @@
 
 echo "Starting $1 operation"
 
-docker kill nodeos-bios || true
-docker rm nodeos-bios || true
+docker-compose kill || true
+docker-compose rm || true
