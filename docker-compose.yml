@@ -7,12 +7,10 @@ services:
     command: nodeos --resync
     hostname: nodeos
     ports:
-      - 443:443
       - 8888:8888
       - 9876:9876
     volumes:
       - nodeos-data-volume:/root/.local/share/eosio/nodeos/data
-      # - /etc/letsencrypt:/etc/letsencrypt
       - /root/eosio-wallet:/root/eosio-wallet
       - /root/config:/root/.local/share/eosio/nodeos/config
 
