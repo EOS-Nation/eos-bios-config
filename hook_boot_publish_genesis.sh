@@ -12,7 +12,7 @@ echo ""
 #
 # You can also publish it through ipfs:
 #
-# echo $2 | ./ipfs add
+#echo $2 | ./ipfs add
 #
 # and publish the resulting URL
 #

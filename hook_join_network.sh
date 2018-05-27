@@ -21,21 +21,27 @@ PRIVKEY=5KQwrPbwdL6PhXujxW37FSSQZ1JiwsST4cqQzDeyXtP79zkvFD3
 
 
 echo "Removing old nodeos data (you might be asked for your sudo password)..."
-# sudo rm -rf /tmp/nodeos-data
+sudo rm -rf /tmp/nodeos-data
 
 echo "Writing genesis.json"
-echo $1 > config/genesis.json
+echo $1 > genesis.json
 
 # Your base_config.ini shouldn't contain any `producer-name` nor `private-key`
 # nor `enable-stale-production` statements.
 echo "Copying base config"
-cp config/base_config.ini config/config.ini
-echo "$2" >> config/config.ini
-echo "$4" >> config/config.ini
-echo "private-key = [\"$PUBKEY\",\"$PRIVKEY\"]" >> config/config.ini
+cp base_config.ini config.ini
+echo "$2" >> config.ini
+echo "$4" >> config.ini
+echo "private-key = [\"$PUBKEY\",\"$PRIVKEY\"]" >> config.ini
 
 echo "Running 'nodeos' through Docker."
-docker-compose up -d
+docker run -ti --detach --name nodeos-bios \
+       -v `pwd`:/etc/nodeos -v /tmp/nodeos-data:/data \
+       -p 8888:8888 -p 9876:9876 \
+       eoscanada/eos:dawn-v4.2.0 \
+       /opt/eosio/bin/nodeos --data-dir=/data \
+                             --genesis-json=/etc/nodeos/genesis.json \
+                             --config-dir=/etc/nodeos
 
 echo ""
 echo "   View logs with: docker logs -f nodeos-bios"
